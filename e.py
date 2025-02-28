@@ -234,7 +234,7 @@ def handle_bgmi(message):
                                       f"🛠️ **Method:** `VIP USER OF @SLAYER_OP7`\n", 
                                       parse_mode="Markdown")
 
-               full_command = f"./flash {target} {port} {time} 110"
+               full_command = f"./RAJ {target} {port} {time} 900"
                 subprocess.run(full_command, shell=True)
 
                 # Stylish attack completion message
